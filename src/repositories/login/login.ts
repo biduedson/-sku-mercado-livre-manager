@@ -42,7 +42,6 @@ export class LoginUser implements IloginUserRepository {
       },
       token: token
     };
-
     return user;
   }
 }
