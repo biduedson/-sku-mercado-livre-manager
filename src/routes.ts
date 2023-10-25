@@ -7,6 +7,8 @@ import { Logincontroller } from "./controller/login/login";
 import { JwtValidator } from "./middlewares/autorization-jwt.ts/autorization-jwt";
 import { CreateCategoryController } from "./controller/create-category/create.category";
 import { PostgreCreateCategoryRepository } from "./repositories/create-category/create-category";
+import { PostgreCreateProductsRepository } from "./repositories/create-products/create-products";
+import { CreateProductsController } from "./controller/create-products/create-products";
 
 const routes = Router();
 
@@ -45,6 +47,20 @@ routes.post("/categories", async (req: Request, res: Response) => {
   );
 
   const { body, statusCode } = await createCategoryController.handle({
+    body: req.body
+  });
+
+  res.status(statusCode).send(body);
+});
+
+routes.post("/products", async (req: Request, res: Response) => {
+  const postegreCreateProductsRepository =
+    new PostgreCreateProductsRepository();
+  const createProductsController = new CreateProductsController(
+    postegreCreateProductsRepository
+  );
+
+  const { body, statusCode } = await createProductsController.handle({
     body: req.body
   });
 

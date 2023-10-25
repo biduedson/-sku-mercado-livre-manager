@@ -38,7 +38,7 @@ export class CreateCategoryController implements IcreateCategoryController {
       };
     } catch (error) {
       return {
-        statusCode: 201,
+        statusCode: 500,
         body: `Erro interno do servido. ${error})`
       };
     }
