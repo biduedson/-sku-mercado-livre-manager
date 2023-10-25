@@ -8,7 +8,6 @@ export interface IcreateCategoryController {
 }
 
 export interface IcreateCategoryParams {
-  id: number;
   name: string;
 }
 

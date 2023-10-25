@@ -19,7 +19,7 @@ export interface IencryptPassword {
   salt: number;
 }
 
-export interface IcreateCarrosRepository {
+export interface IcreateUserRepository {
   createUser(params: IcreateUserParams): Promise<User>;
   findEmailOrUsernameExist(
     collun: string,

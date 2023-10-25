@@ -5,16 +5,16 @@ email text  not null unique,
 password text not null
 );
 
-CREATE TABLE produtos (
+CREATE TABLE products (
   id SERIAL PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  descricao TEXT, NOT NULL
-  preco int  NOT NULL,
-  estoque INT NOT NULL,
-  categoria_id INT NOT NULL
+  name VARCHAR(255) NOT NULL UNIQUE,
+  description TEXT NOT NULL,
+  price int  NOT NULL,
+  stock INT NOT NULL,
+  category_id INT NOT NULL
 );
 
-CREATE TABLE categorias (
+CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL
 );

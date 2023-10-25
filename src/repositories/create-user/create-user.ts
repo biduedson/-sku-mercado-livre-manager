@@ -1,12 +1,12 @@
 import bcrypt from "bcrypt";
 import {
-  IcreateCarrosRepository,
+  IcreateUserRepository,
   IcreateUserParams
 } from "../../controller/create-user/protocols";
 import { knex } from "../../database/conection";
 import { User } from "../../models/user";
 
-export class PostgreCreateUserReposirory implements IcreateCarrosRepository {
+export class PostgreCreateUserReposirory implements IcreateUserRepository {
   async findEmailOrUsernameExist(
     collun: string,
     table: string,

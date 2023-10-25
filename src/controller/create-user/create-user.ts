@@ -1,13 +1,13 @@
 import { User } from "../../models/user";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
-  IcreateCarrosRepository,
+  IcreateUserRepository,
   IcreateUserController,
   IcreateUserParams
 } from "./protocols";
 
 export class CreateUserController implements IcreateUserController {
-  constructor(private readonly createUserRepository: IcreateCarrosRepository) {}
+  constructor(private readonly createUserRepository: IcreateUserRepository) {}
 
   async handle(
     httpRequest: HttpRequest<IcreateUserParams>
