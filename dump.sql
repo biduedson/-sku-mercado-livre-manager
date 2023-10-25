@@ -8,9 +8,10 @@ password text not null
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
-  description TEXT NOT NULL,
-  price int  NOT NULL,
+  description TEXT NULL,
+  price INT NOT NULL,
   stock INT NOT NULL,
+  sku varchar(30) NOT NULL,
   category_id INT NOT NULL
 );
 

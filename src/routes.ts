@@ -9,6 +9,8 @@ import { CreateCategoryController } from "./controller/create-category/create.ca
 import { PostgreCreateCategoryRepository } from "./repositories/create-category/create-category";
 import { PostgreCreateProductsRepository } from "./repositories/create-products/create-products";
 import { CreateProductsController } from "./controller/create-products/create-products";
+import { GetProductsRepository } from "./repositories/get-products/get-products";
+import { GetProductsController } from "./controller/get-products/get-products";
 
 const routes = Router();
 
@@ -50,6 +52,16 @@ routes.post("/categories", async (req: Request, res: Response) => {
     body: req.body
   });
 
+  res.status(statusCode).send(body);
+});
+
+routes.get("/products", async (req: Request, res: Response) => {
+  const getProductsRepository = new GetProductsRepository();
+  const getProductsController = new GetProductsController(
+    getProductsRepository
+  );
+
+  const { body, statusCode } = await getProductsController.handle();
   res.status(statusCode).send(body);
 });
 

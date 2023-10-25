@@ -14,6 +14,7 @@ export interface IproductsParams {
   description: string;
   price: number;
   stock: number;
+  sku: string;
   category_id: number;
 }
 
