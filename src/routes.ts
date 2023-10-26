@@ -11,6 +11,8 @@ import { PostgreCreateProductsRepository } from "./repositories/create-products/
 import { CreateProductsController } from "./controller/create-products/create-products";
 import { GetProductsRepository } from "./repositories/get-products/get-products";
 import { GetProductsController } from "./controller/get-products/get-products";
+import { GetCategoriesRepository } from "./repositories/get-categories/get-categories";
+import { GetCAtegoriesController } from "./controller/get-categories/get-categories";
 
 const routes = Router();
 
@@ -39,6 +41,15 @@ routes.post("/users", async (req: Request, res: Response) => {
     body: req.body
   });
 
+  res.status(statusCode).send(body);
+});
+
+routes.get("/categories", async (req: Request, res: Response) => {
+  const getCategoriesRepository = new GetCategoriesRepository();
+  const getCategoriesController = new GetCAtegoriesController(
+    getCategoriesRepository
+  );
+  const { body, statusCode } = await getCategoriesController.handle();
   res.status(statusCode).send(body);
 });
 
