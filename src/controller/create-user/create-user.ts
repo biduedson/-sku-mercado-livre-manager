@@ -1,9 +1,10 @@
-import { User } from "../../models/user";
+import { Iuser } from "../../models/user";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
   IcreateUserRepository,
   IcreateUserController,
-  IcreateUserParams
+  IcreateUserParams,
+  IcreateUserResponse
 } from "./protocols";
 
 export class CreateUserController implements IcreateUserController {
@@ -11,7 +12,7 @@ export class CreateUserController implements IcreateUserController {
 
   async handle(
     httpRequest: HttpRequest<IcreateUserParams>
-  ): Promise<HttpResponse<User>> {
+  ): Promise<HttpResponse<IcreateUserResponse>> {
     try {
       const { username, email } = httpRequest.body!;
       const findUsername =

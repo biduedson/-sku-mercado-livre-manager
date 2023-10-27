@@ -13,6 +13,8 @@ import { GetProductsRepository } from "./repositories/get-products/get-products"
 import { GetProductsController } from "./controller/get-products/get-products";
 import { GetCategoriesRepository } from "./repositories/get-categories/get-categories";
 import { GetCAtegoriesController } from "./controller/get-categories/get-categories";
+import { GetUsersController } from "./controller/get-users/get-users";
+import { GetUsersRepository } from "./repositories/get-users/get-users";
 
 const routes = Router();
 
@@ -31,6 +33,13 @@ routes.use((req: Request, res: Response, next: NextFunction) => {
   autorization.verifyToken(req, res, next);
 });
 
+routes.get("/users", async (req: Request, res: Response) => {
+  const getUsersRepository = new GetUsersRepository();
+  const getUsersController = new GetUsersController(getUsersRepository);
+
+  const { body, statusCode } = await getUsersController.handle();
+  res.status(statusCode).send(body);
+});
 routes.post("/users", async (req: Request, res: Response) => {
   const postgreCreateUserRepository = new PostgreCreateUserReposirory();
   const createUserController = new CreateUserController(

@@ -1,10 +1,10 @@
-import { User } from "../../models/user";
+import { Iuser } from "../../models/user";
 import { HttpRequest, HttpResponse } from "../protocols";
 
 export interface IcreateUserController {
   handle(
     httpRequest: HttpRequest<IcreateUserParams>
-  ): Promise<HttpResponse<User>>;
+  ): Promise<HttpResponse<IcreateUserResponse>>;
 }
 
 export interface IcreateUserParams {
@@ -14,13 +14,22 @@ export interface IcreateUserParams {
   password: string;
 }
 
+export interface IcreateUserResponse {
+  message: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  };
+}
+
 export interface IencryptPassword {
   encryptPassWord: string;
   salt: number;
 }
 
 export interface IcreateUserRepository {
-  createUser(params: IcreateUserParams): Promise<User>;
+  createUser(params: IcreateUserParams): Promise<IcreateUserResponse>;
   findEmailOrUsernameExist(
     collun: string,
     table: string,

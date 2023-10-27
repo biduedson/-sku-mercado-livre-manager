@@ -1,10 +1,11 @@
 import bcrypt from "bcrypt";
 import {
   IcreateUserRepository,
-  IcreateUserParams
+  IcreateUserParams,
+  IcreateUserResponse
 } from "../../controller/create-user/protocols";
 import { knex } from "../../database/conection";
-import { User } from "../../models/user";
+import { Iuser } from "../../models/user";
 
 export class PostgreCreateUserReposirory implements IcreateUserRepository {
   async findEmailOrUsernameExist(
@@ -23,18 +24,21 @@ export class PostgreCreateUserReposirory implements IcreateUserRepository {
     return false;
   }
 
-  async createUser(params: IcreateUserParams): Promise<User> {
+  async createUser(params: IcreateUserParams): Promise<IcreateUserResponse> {
     const { password, ...rest } = params;
     const encryptPassWord: string = await bcrypt.hash(password, 10);
 
-    const [user] = await knex<User>("users")
+    const [user] = await knex<Iuser>("users")
       .insert({ ...rest, password: encryptPassWord })
-      .returning("*");
+      .returning(["id", "username", "email"]);
 
     if (!user) {
       throw new Error("User not created");
     }
 
-    return user;
+    return {
+      message: "Usuario cadastrado com sucesso.",
+      user
+    };
   }
 }
