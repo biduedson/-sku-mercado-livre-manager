@@ -15,6 +15,8 @@ import { GetCategoriesRepository } from "./repositories/get-categories/get-categ
 import { GetCAtegoriesController } from "./controller/get-categories/get-categories";
 import { GetUsersController } from "./controller/get-users/get-users";
 import { GetUsersRepository } from "./repositories/get-users/get-users";
+import { SearchProductOfSkuRepository } from "./repositories/search-product-sku/search-product-sku";
+import { SearchProductOfSkuController } from "./controller/search-product-sku/search-product-sku";
 
 const routes = Router();
 
@@ -94,6 +96,18 @@ routes.post("/products", async (req: Request, res: Response) => {
 
   const { body, statusCode } = await createProductsController.handle({
     body: req.body
+  });
+
+  res.status(statusCode).send(body);
+});
+
+routes.get("/products/:sku", async (req: Request, res: Response) => {
+  const searcProductOfSkuReposotory = new SearchProductOfSkuRepository();
+  const seacrProductOfSkuController = new SearchProductOfSkuController(
+    searcProductOfSkuReposotory
+  );
+  const { body, statusCode } = await seacrProductOfSkuController.handle({
+    params: req.params
   });
 
   res.status(statusCode).send(body);

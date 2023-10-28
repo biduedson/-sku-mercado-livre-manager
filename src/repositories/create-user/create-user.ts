@@ -8,15 +8,23 @@ import { knex } from "../../database/conection";
 import { Iuser } from "../../models/user";
 
 export class PostgreCreateUserReposirory implements IcreateUserRepository {
-  async findEmailOrUsernameExist(
-    collun: string,
-    table: string,
-    emailOrUsername: string
-  ): Promise<boolean> {
+  async checkEmail(email: string): Promise<boolean> {
     const find = await knex
-      .select(collun)
-      .from(table)
-      .where(collun, emailOrUsername)
+      .select("email")
+      .from("users")
+      .where("email", email)
+      .first();
+    if (find) {
+      return true;
+    }
+    return false;
+  }
+
+  async checkUsername(username: string): Promise<boolean> {
+    const find = await knex
+      .select("username")
+      .from("users")
+      .where("username", username)
       .first();
     if (find) {
       return true;

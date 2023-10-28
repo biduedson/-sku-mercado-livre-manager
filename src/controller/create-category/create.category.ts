@@ -16,11 +16,7 @@ export class CreateCategoryController implements IcreateCategoryController {
     try {
       const { name } = httpRequest.body!;
       const findNameCategory =
-        await this.createUserRepository.searchExistingCategory(
-          "name",
-          "categories",
-          name
-        );
+        await this.createUserRepository.searchExistingCategory(name);
 
       if (findNameCategory) {
         return {

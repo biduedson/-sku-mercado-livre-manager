@@ -17,11 +17,7 @@ export class CreateProductsController implements IcreateProductsController {
       const { name } = httpRequest.body!;
 
       const nameExisting =
-        await this.createProductsReposytory.searchExistingProduts(
-          "name",
-          "products",
-          name
-        );
+        await this.createProductsReposytory.searchExistingProduts(name);
 
       if (nameExisting) {
         return {

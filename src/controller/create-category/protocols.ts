@@ -13,9 +13,5 @@ export interface IcreateCategoryParams {
 
 export interface IcreateCategoryRepository {
   createCategory(params: IcreateCategoryParams): Promise<Icategory>;
-  searchExistingCategory(
-    collun: string,
-    table: string,
-    category: string
-  ): Promise<boolean>;
+  searchExistingCategory(name: string): Promise<boolean>;
 }

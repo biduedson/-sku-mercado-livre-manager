@@ -1,4 +1,3 @@
-import { User } from "../../models/user";
 import { HttpRequest, HttpResponse } from "../protocols";
 
 export interface IloginUserController {

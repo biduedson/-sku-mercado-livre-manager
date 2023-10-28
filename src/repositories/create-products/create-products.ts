@@ -8,15 +8,11 @@ import { Iproducts } from "../../models/products";
 export class PostgreCreateProductsRepository
   implements IcreateProductsRepository
 {
-  async searchExistingProduts(
-    collun: string,
-    table: string,
-    products: string
-  ): Promise<boolean> {
+  async searchExistingProduts(product: string): Promise<boolean> {
     const existingProducts = await knex
-      .select(collun)
-      .from(table)
-      .where(collun, products)
+      .select("name")
+      .from("products")
+      .where("name", product)
       .first();
 
     if (existingProducts) {

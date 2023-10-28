@@ -20,9 +20,5 @@ export interface IproductsParams {
 
 export interface IcreateProductsRepository {
   createProducts(params: IproductsParams): Promise<Iproducts>;
-  searchExistingProduts(
-    collun: string,
-    table: string,
-    products: string
-  ): Promise<boolean>;
+  searchExistingProduts(product: string): Promise<boolean>;
 }

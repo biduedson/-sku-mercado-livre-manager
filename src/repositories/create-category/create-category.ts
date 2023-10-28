@@ -8,15 +8,11 @@ import { Icategory } from "../../models/category";
 export class PostgreCreateCategoryRepository
   implements IcreateCategoryRepository
 {
-  async searchExistingCategory(
-    collun: string,
-    table: string,
-    category: string
-  ): Promise<boolean> {
+  async searchExistingCategory(name: string): Promise<boolean> {
     const existingCategory = await knex
-      .select(collun)
-      .from(table)
-      .where(collun, category)
+      .select("name")
+      .from("categories")
+      .where("name", name)
       .first();
     if (existingCategory) {
       return true;

@@ -15,32 +15,27 @@ export class CreateUserController implements IcreateUserController {
   ): Promise<HttpResponse<IcreateUserResponse>> {
     try {
       const { username, email } = httpRequest.body!;
-      const findUsername =
-        await this.createUserRepository.findEmailOrUsernameExist(
-          "username",
-          "users",
-          username
-        );
 
-      if (findUsername) {
+      const checkUsername = await this.createUserRepository.checkUsername(
+        username
+      );
+
+      if (checkUsername) {
         return {
           statusCode: 400,
-          body: "Este nome de usuario ja existe."
+          body: "Este nome de usuario ja esta cadastrado."
         };
       }
-      const findEmail =
-        await this.createUserRepository.findEmailOrUsernameExist(
-          "email",
-          "users",
-          email
-        );
 
-      if (findEmail) {
+      const checkEmail = await this.createUserRepository.checkEmail(email);
+
+      if (checkEmail) {
         return {
           statusCode: 400,
           body: "Este email ja esta cadastrado."
         };
       }
+
       const user = await this.createUserRepository.createUser(
         httpRequest.body!
       );

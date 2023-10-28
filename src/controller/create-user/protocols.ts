@@ -8,7 +8,6 @@ export interface IcreateUserController {
 }
 
 export interface IcreateUserParams {
-  id: number;
   username: string;
   email: string;
   password: string;
@@ -30,9 +29,6 @@ export interface IencryptPassword {
 
 export interface IcreateUserRepository {
   createUser(params: IcreateUserParams): Promise<IcreateUserResponse>;
-  findEmailOrUsernameExist(
-    collun: string,
-    table: string,
-    emailOrUsername: string
-  ): Promise<boolean>;
+  checkEmail(email: string): Promise<boolean>;
+  checkUsername(username: string): Promise<boolean>;
 }
