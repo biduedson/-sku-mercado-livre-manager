@@ -1,4 +1,5 @@
 import { Iproducts } from "../../models/products";
+import { iCreateProductsSchema } from "../../validations/schemes/create-products-scheme/creste-products-scheme";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
   IcreateProductsController,
@@ -14,6 +15,14 @@ export class CreateProductsController implements IcreateProductsController {
     httpRequest: HttpRequest<IproductsParams>
   ): Promise<HttpResponse<Iproducts>> {
     try {
+      const { error } = iCreateProductsSchema.validate(httpRequest.body);
+
+      if (error) {
+        return {
+          statusCode: 400,
+          body: error.details[0].message
+        };
+      }
       const { name } = httpRequest.body!;
 
       const nameExisting =

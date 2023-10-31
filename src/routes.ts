@@ -17,6 +17,10 @@ import { GetUsersController } from "./controller/get-users/get-users";
 import { GetUsersRepository } from "./repositories/get-users/get-users";
 import { SearchProductOfSkuRepository } from "./repositories/search-product-sku/search-product-sku";
 import { SearchProductOfSkuController } from "./controller/search-product-sku/search-product-sku";
+import { UpdateProductsController } from "./controller/update-products/update-products";
+import { UpdateCategoryController } from "./controller/update-category/update-category";
+import { PostegreeUpdatCategoryRepository } from "./repositories/update-category/update-category";
+import { PostgreeUpdadeProducstRepository } from "./repositories/update-products/update-products";
 
 const routes = Router();
 
@@ -65,15 +69,28 @@ routes.get("/categories", async (req: Request, res: Response) => {
 });
 
 routes.post("/categories", async (req: Request, res: Response) => {
-  const postgreCreateCategoryRepository = new PostgreCreateCategoryRepository();
+  const createCategoryRepository = new PostgreCreateCategoryRepository();
   const createCategoryController = new CreateCategoryController(
-    postgreCreateCategoryRepository
+    createCategoryRepository
   );
 
   const { body, statusCode } = await createCategoryController.handle({
     body: req.body
   });
 
+  res.status(statusCode).send(body);
+});
+
+routes.put("/categories/:id", async (req: Request, res: Response) => {
+  const updateCategoriesRepository = new PostegreeUpdatCategoryRepository();
+  const updateCategoriesController = new UpdateCategoryController(
+    updateCategoriesRepository
+  );
+
+  const { body, statusCode } = await updateCategoriesController.handle({
+    params: req.params,
+    body: req.body
+  });
   res.status(statusCode).send(body);
 });
 
@@ -101,6 +118,19 @@ routes.post("/products", async (req: Request, res: Response) => {
   res.status(statusCode).send(body);
 });
 
+routes.put("/products/:id", async (req: Request, res: Response) => {
+  const updateProductRepository = new PostgreeUpdadeProducstRepository();
+  const updateProductsController = new UpdateProductsController(
+    updateProductRepository
+  );
+
+  const { body, statusCode } = await updateProductsController.handle({
+    params: req.params,
+    body: req.body
+  });
+
+  res.status(statusCode).send(body);
+});
 routes.get("/products/:sku", async (req: Request, res: Response) => {
   const searcProductOfSkuReposotory = new SearchProductOfSkuRepository();
   const seacrProductOfSkuController = new SearchProductOfSkuController(

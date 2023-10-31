@@ -1,4 +1,5 @@
 import { Icategory } from "../../models/category";
+import { createCategoriesSchema } from "../../validations/schemes/create-categories-scheme/create-categories-scheme";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
   IcreateCategoryController,
@@ -14,6 +15,13 @@ export class CreateCategoryController implements IcreateCategoryController {
     httpRequest: HttpRequest<IcreateCategoryParams>
   ): Promise<HttpResponse<Icategory>> {
     try {
+      const { error } = createCategoriesSchema.validate(httpRequest.body);
+      if (error) {
+        return {
+          statusCode: 400,
+          body: error.details[0].message
+        };
+      }
       const { name } = httpRequest.body!;
       const findNameCategory =
         await this.createUserRepository.searchExistingCategory(name);

@@ -1,4 +1,4 @@
-import { Iuser } from "../../models/user";
+import { createUserSchema } from "../../validations/schemes/create-user-scheme/create-user-scheme";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
   IcreateUserRepository,
@@ -14,6 +14,14 @@ export class CreateUserController implements IcreateUserController {
     httpRequest: HttpRequest<IcreateUserParams>
   ): Promise<HttpResponse<IcreateUserResponse>> {
     try {
+      const { error } = createUserSchema.validate(httpRequest.body!);
+
+      if (error) {
+        return {
+          statusCode: 400,
+          body: error.details[0].message
+        };
+      }
       const { username, email } = httpRequest.body!;
 
       const checkUsername = await this.createUserRepository.checkUsername(

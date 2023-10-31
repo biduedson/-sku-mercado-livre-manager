@@ -4,7 +4,7 @@ import { knex } from "../../database/conection";
 
 export class GetCategoriesRepository implements IgetCategoriesRepository {
   async getCategories(): Promise<Icategory[]> {
-    const categories = await knex<Icategory>("categories");
+    const categories = await knex("categories").orderBy("id", "asc");
     return categories;
   }
 }

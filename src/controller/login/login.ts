@@ -1,3 +1,4 @@
+import { loginSchema } from "../../validations/schemes/login-scheme/login-scheme";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
   IloggedInUser,
@@ -12,6 +13,14 @@ export class Logincontroller implements IloginUserController {
     httpRequest: HttpRequest<IloginUserParams>
   ): Promise<HttpResponse<IloggedInUser>> {
     try {
+      const { error } = loginSchema.validate(httpRequest.body);
+
+      if (error) {
+        return {
+          statusCode: 400,
+          body: error.details[0].message
+        };
+      }
       const { email, password } = httpRequest.body!;
 
       const checkEmailAndPass =

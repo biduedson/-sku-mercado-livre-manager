@@ -4,7 +4,7 @@ import { knex } from "../../database/conection";
 
 export class GetProductsRepository implements IgetProductsRepository {
   async getProducts(): Promise<Iproducts[]> {
-    const products = await knex<Iproducts>("products");
+    const products = await knex<Iproducts>("products").orderBy("id", "asc");
     return products;
   }
 }
