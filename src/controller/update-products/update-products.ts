@@ -2,11 +2,11 @@ import { Iproducts } from "../../models/products";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
   IUpdateProductsRepository,
-  IUpdateUserController,
+  IUpdateProductController,
   UpdateProductsParams
 } from "./protocols";
 
-export class UpdateProductsController implements IUpdateUserController {
+export class UpdateProductsController implements IUpdateProductController {
   constructor(
     private readonly updateProductsRepository: IUpdateProductsRepository
   ) {}

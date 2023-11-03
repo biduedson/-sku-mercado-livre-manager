@@ -2,7 +2,7 @@ import { Iproducts } from "../../models/products";
 import { Iuser } from "../../models/user";
 import { HttpRequest, HttpResponse } from "../protocols";
 
-export interface IUpdateUserController {
+export interface IUpdateProductController {
   handle(
     httpRequest: HttpRequest<UpdateProductsParams>
   ): Promise<HttpResponse<Iproducts>>;

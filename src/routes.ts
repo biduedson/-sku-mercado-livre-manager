@@ -21,6 +21,8 @@ import { UpdateProductsController } from "./controller/update-products/update-pr
 import { UpdateCategoryController } from "./controller/update-category/update-category";
 import { PostegreeUpdatCategoryRepository } from "./repositories/update-category/update-category";
 import { PostgreeUpdadeProducstRepository } from "./repositories/update-products/update-products";
+import { UpdateUserRepository } from "./repositories/update-user/update-user";
+import { UpdateUserController } from "./controller/update-user/update-user";
 
 const routes = Router();
 
@@ -53,6 +55,17 @@ routes.post("/users", async (req: Request, res: Response) => {
   );
 
   const { body, statusCode } = await createUserController.handle({
+    body: req.body
+  });
+
+  res.status(statusCode).send(body);
+});
+
+routes.put("/user", async (req: Request, res: Response) => {
+  const updateUserRepository = new UpdateUserRepository();
+  const updateUserController = new UpdateUserController(updateUserRepository);
+  const { body, statusCode } = await updateUserController.handle({
+    user: req.user,
     body: req.body
   });
 
