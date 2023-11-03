@@ -21,4 +21,5 @@ export interface IproductsParams {
 export interface IcreateProductsRepository {
   createProducts(params: IproductsParams): Promise<Iproducts>;
   searchExistingProduts(product: string): Promise<boolean>;
+  searchExistingSku(sku: string): Promise<boolean>;
 }

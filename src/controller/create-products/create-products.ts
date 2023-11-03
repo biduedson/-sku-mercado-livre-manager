@@ -23,7 +23,7 @@ export class CreateProductsController implements IcreateProductsController {
           body: error.details[0].message
         };
       }
-      const { name } = httpRequest.body!;
+      const { name, sku } = httpRequest.body!;
 
       const nameExisting =
         await this.createProductsReposytory.searchExistingProduts(name);
@@ -32,6 +32,17 @@ export class CreateProductsController implements IcreateProductsController {
         return {
           statusCode: 400,
           body: "Ja existe um produto cadastrado com este nome."
+        };
+      }
+
+      const skuExisting = await this.createProductsReposytory.searchExistingSku(
+        sku
+      );
+
+      if (skuExisting) {
+        return {
+          statusCode: 400,
+          body: "Ja existe um produto cadastrado com este SKU."
         };
       }
 

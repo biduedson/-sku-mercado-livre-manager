@@ -21,6 +21,18 @@ export class PostgreCreateProductsRepository
 
     return false;
   }
+  async searchExistingSku(sku: string): Promise<boolean> {
+    const existingSku = await knex
+      .select("sku")
+      .from("products")
+      .where("sku", sku)
+      .first();
+
+    if (existingSku) {
+      return true;
+    }
+    return false;
+  }
   async createProducts(params: IproductsParams): Promise<Iproducts> {
     const [products] = await knex<Iproducts>("products")
       .insert(params)

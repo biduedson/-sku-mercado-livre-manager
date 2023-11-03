@@ -23,6 +23,8 @@ import { PostegreeUpdatCategoryRepository } from "./repositories/update-category
 import { PostgreeUpdadeProducstRepository } from "./repositories/update-products/update-products";
 import { UpdateUserRepository } from "./repositories/update-user/update-user";
 import { UpdateUserController } from "./controller/update-user/update-user";
+import { DeleteProductRepository } from "./repositories/delete-product/delete-product";
+import { DeletePtoductController } from "./controller/delete-product/delete-product";
 
 const routes = Router();
 
@@ -153,6 +155,18 @@ routes.get("/products/:sku", async (req: Request, res: Response) => {
     params: req.params
   });
 
+  res.status(statusCode).send(body);
+});
+
+routes.delete("/products/:sku", async (req: Request, res: Response) => {
+  const deleProductRepository = new DeleteProductRepository();
+  const deletePtoductController = new DeletePtoductController(
+    deleProductRepository
+  );
+
+  const { body, statusCode } = await deletePtoductController.handle({
+    params: req.params
+  });
   res.status(statusCode).send(body);
 });
 
